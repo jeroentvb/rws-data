@@ -1,0 +1,4 @@
+{
+    "message": "invalid json response body at https://waterwebservices.rijkswaterstaat.nl/ONLINEWAARNEMINGENSERVICES_DBO/OphalenWaarnemingen reason: Unexpected token J in JSON at position 0",
+    "type": "invalid-json"
+}

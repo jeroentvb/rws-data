@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "typescript-starter",
+  "name": "rws-data",
   "version": "0.1.0",
   "description": "REPLACE THIS",
   "main": "dist/index.js",
@@ -10,16 +10,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "REPLACE THIS git+https://github.com/jeroentvb/node-typescript-starter.git"
+    "url": "git+https://github.com/jeroentvb/rws-data.git"
   },
   "author": "jeroentvb",
   "license": "ISC",
   "bugs": {
-    "url": "REPLACE THIS https://github.com/jeroentvb/node-typescript-starter/issues"
+    "url": "https://github.com/jeroentvb/rws-data/issues"
   },
-  "homepage": "REPLACE THIS https://github.com/jeroentvb/node-typescript-starter#readme",
+  "homepage": "REPLACE THIS https://github.com/jeroentvb/rws-data#readme",
   "devDependencies": {
-    "@types/node": "^13.1.8",
-    "typescript": "^3.7.5"
+    "@types/node": "^13.7.7",
+    "@types/node-fetch": "^2.5.5",
+    "jeroentvb-helper": "github:jeroentvb/jeroentvb-helper",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.0"
   }
 }
