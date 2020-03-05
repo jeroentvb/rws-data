@@ -1,0 +1,25 @@
+{
+  "private": true,
+  "name": "typescript-starter",
+  "version": "0.1.0",
+  "description": "REPLACE THIS",
+  "main": "dist/index.js",
+  "scripts": {
+    "watch": "tsc -w",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "REPLACE THIS git+https://github.com/jeroentvb/node-typescript-starter.git"
+  },
+  "author": "jeroentvb",
+  "license": "ISC",
+  "bugs": {
+    "url": "REPLACE THIS https://github.com/jeroentvb/node-typescript-starter/issues"
+  },
+  "homepage": "REPLACE THIS https://github.com/jeroentvb/node-typescript-starter#readme",
+  "devDependencies": {
+    "@types/node": "^13.1.8",
+    "typescript": "^3.7.5"
+  }
+}
