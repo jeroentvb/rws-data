@@ -5,6 +5,7 @@
 
 // import { Location, Period } from './interfaces';
 import { getLocations } from './modules/get-locations.js';
+import { getMetadata } from './modules/get-metadata.js';
 
 
 // async function observations(
@@ -31,3 +32,10 @@ import { getLocations } from './modules/get-locations.js';
    const data = await getLocations();
    console.log(data);
 })();
+
+const rwsApi = {
+   getLocations,
+   getMetadata,
+};
+
+export default rwsApi;

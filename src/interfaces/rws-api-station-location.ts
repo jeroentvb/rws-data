@@ -1,4 +1,4 @@
-export interface RawStationLocationData {
+export interface RwsApiStationLocation {
    Locatie_MessageID: number;
    Coordinatenstelsel: '25831';
    X: number;
@@ -7,7 +7,7 @@ export interface RawStationLocationData {
    Code: string;
 }
 
-export interface StationLocation {
+export interface RwsApiParsedStationLocation {
    id: number;
    coordinates: {
       x: number;

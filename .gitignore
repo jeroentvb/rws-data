@@ -105,3 +105,4 @@ dist
 
 *.pdf
 py-test/
+.DS_Store

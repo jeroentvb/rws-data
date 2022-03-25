@@ -1,29 +1,28 @@
-import { BASE_API_URL } from '../constants/index.js';
-import type { RawStationLocationData, StationLocation } from '../interfaces/station-location.model';
+import { RwsApiMetadataResponse } from '../interfaces/rws-api-response.model.js';
+import { METADATA_SERVICE_URL } from '../constants/urls.js';
+import type { RwsApiStationLocation, RwsApiParsedStationLocation } from '../interfaces/rws-api-station-location';
 import { makeJsonRequest } from '../utils/json-request.js';
 
-interface RawLocationData {
-   LocatieLijst: RawStationLocationData[];
-   /** See response for all data. */
-   [key: string]: unknown;
-}
-
-const LOCATIONS_URL = BASE_API_URL + 'METADATASERVICES_DBO/OphalenCatalogus/';
 const LOCATIONS_REQUEST_BODY = {
-   'CatalogusFilter': {
-      'Compartimenten': true,
+   CatalogusFilter: {
+      Grootheden: true,
+      Parameters: true,
+      Compartimenten: true,
+      Hoedanigheden: true,
+      Eenheden: true,
+      MeetApparaten: true,
    }
 };
 
-export async function getLocations(): Promise<StationLocation[]>
-export async function getLocations(rawData: true): Promise<RawLocationData>
+export async function getLocations(): Promise<RwsApiParsedStationLocation[]>
+export async function getLocations(rawData: true): Promise<RwsApiMetadataResponse>
 export async function getLocations(rawData = false) {
-   const data: RawLocationData= await makeJsonRequest(LOCATIONS_URL, LOCATIONS_REQUEST_BODY);
+   const data: RwsApiMetadataResponse = await makeJsonRequest(METADATA_SERVICE_URL, LOCATIONS_REQUEST_BODY);
 
    return rawData ? data : parseLocations(data.LocatieLijst);
 }
 
-function parseLocations(locations: RawStationLocationData[]): StationLocation[] {
+function parseLocations(locations: RwsApiStationLocation[]): RwsApiParsedStationLocation[] {
    return locations.map(location => ({
       id: location.Locatie_MessageID,
       coordinates: {
