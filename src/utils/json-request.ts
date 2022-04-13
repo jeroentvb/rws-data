@@ -12,7 +12,7 @@ export async function makeJsonRequest<T extends RwsApiResponseSuccess>(url: stri
 
    const json = await res.json() as RwsApiResponse;
 
-   if (json.Succesvol === false) throw new Error(`Request was unsuccessful. The following message was included in the response: ${json.Foutmelding}`);
+   if (json.Succesvol === false) throw new Error(`Request unsuccessful. The following message was included in the response: \n ${json.Foutmelding}`);
 
    return json as T;
 }

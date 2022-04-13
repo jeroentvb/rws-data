@@ -1,5 +1,5 @@
-const RWS = require('./dist/index');
-const helper = require('jeroentvb-helper');
+import RWS from './dist/index.js';
+import helper from 'jeroentvb-helper';
 
 (async () => {
    const data = await RWS.observations(['WINDSHD', 'WINDSTOOT'], {

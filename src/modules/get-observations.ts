@@ -1,21 +1,24 @@
-import type { RwsApiParsedStationLocation } from '../interfaces/rws-api-station-location.js';
 import { OBSERVATIONS_URL } from '../constants/urls.js';
 import { makeJsonRequest } from '../utils/json-request.js';
-import { ObservationPeriod } from '../interfaces/observation-period.model.js';
+import type { ObservationRequestData, RwsApiObservations, RwsApiObservationsReponse, RwsApiObservationValue } from '@interfaces/get-observations.model.js';
+import type { RwsApiResponseSuccess } from '@interfaces/rws-api-response.model.js';
+import { parseLocation } from '../utils/parse-location.js';
+import { parseMetadata } from '../utils/parse-metadata.js';
 
-export type ObservationRequestStationLocation = Pick<RwsApiParsedStationLocation, 'coordinates' | 'code'>;
-export interface ObservationRequestData {
-   location: ObservationRequestStationLocation;
-   /** Needs to be in ISO string format */
-   period: ObservationPeriod;
+interface ObservationsResponse extends RwsApiResponseSuccess {
+   WaarnemingenLijst: RwsApiObservationsReponse[];
 }
 
-export async function getObservations({ location, period }: ObservationRequestData, rawData = false) {
-   const data = await makeJsonRequest(OBSERVATIONS_URL, {
+export async function getObservations({ location, period, variables }: ObservationRequestData, rawData = false) {
+   const data: ObservationsResponse = await makeJsonRequest(OBSERVATIONS_URL, {
       AquoPlusWaarnemingMetadata: {
          AquoMetadata: {
-            // TODO create request to get all 'codes' for this request
-            'Grootheid': { 'Code':'WINDSHD' }
+            ...(variables.grootheid && { Grootheid: { Code: variables.grootheid } }),
+            ...(variables.eenheid && { Eenheid: { Code: variables.eenheid } }),
+            ...(variables.compartiment && { Compartiment: { Code: variables.compartiment } }),
+            ...(variables.hoedanigheid && { Hoedanigheid: { Code: variables.hoedanigheid } }),
+            ...(variables.meetapparaat && { MeetApparaat: { Code: variables.meetapparaat } }),
+            ...(variables.parameter && { Parameter: { Code: variables.parameter } }),
          }
       },
       Locatie: {
@@ -29,9 +32,22 @@ export async function getObservations({ location, period }: ObservationRequestDa
       }
    });
 
-   return rawData ? data : parseObservations(data);
+   return rawData ? data : parseObservations(data.WaarnemingenLijst);
 }
 
-function parseObservations(data: any) {
-   return data;
+function parseObservations(data: RwsApiObservationsReponse[]): RwsApiObservations {
+   const values: RwsApiObservationValue[] = data.map((observation) => {
+      return {
+         metadata: parseMetadata(observation.AquoMetadata),
+         observations: observation.MetingenLijst.map((observationData) => ({
+            date: observationData.Tijdstip,
+            value: observationData.Meetwaarde.Waarde_Numeriek,
+         }))
+      };
+   });
+
+   return {
+      location: parseLocation(data[0].Locatie),
+      values,
+   };
 }

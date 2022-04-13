@@ -1,10 +1,4 @@
-export interface Location {
-  x: number
-  y: number,
-  code: string
-}
-
-export interface Period {
-  start: string
-  end: string
-}
+export * from './get-observations.model';
+export * from './observation-period.model';
+export * from './rws-api-station-location';
+export * from './rws-api-metadata.model';

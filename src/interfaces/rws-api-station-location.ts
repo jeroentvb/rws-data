@@ -1,6 +1,6 @@
 export interface RwsApiStationLocation {
    Locatie_MessageID: number;
-   Coordinatenstelsel: '25831';
+   Coordinatenstelsel: string;
    X: number;
    Y: number;
    Naam: string;

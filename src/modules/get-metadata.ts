@@ -1,7 +1,8 @@
 import { METADATA_SERVICE_URL } from '../constants/urls.js';
 import { makeJsonRequest } from '../utils/json-request.js';
-import type { RwsApiMetadataResponse, RwsApiResponseSuccess } from '../interfaces/rws-api-response.model.js';
-import type { RwsApiMetadata, RwsApiMetadataParsed, RwsApiMetadataValue } from '../interfaces/rws-api-metadata.model.js';
+import type { RwsApiResponseSuccess } from '../interfaces/rws-api-response.model.js';
+import type { RwsApiMetadata, RwsApiMetadataParsed, RwsApiMetadataResponse } from '../interfaces/rws-api-metadata.model.js';
+import { parseMetadata } from '../utils/parse-metadata.js';
 
 interface CatalogusResponse extends RwsApiResponseSuccess {
    AquoMetadataLijst: RwsApiMetadata[];
@@ -35,27 +36,5 @@ export async function getMetadata(rawData = false) {
       }
    });
 
-   return rawData ? data : parseMetadata(data.AquoMetadataLijst);
-}
-
-function parseMetadata(metadata: RwsApiMetadata[]): RwsApiMetadataParsed[] {
-   return metadata.map(({ AquoMetadata_MessageID, Parameter_Wat_Omschrijving, ...metadataValues }) => {
-      const dataValues = Object.entries(metadataValues).reduce((metadata, [key, value]: [string, RwsApiMetadataValue]) => {
-         if (value.Code === 'NVT') return metadata;
-
-         return {
-            ...metadata,
-            [key.toLocaleLowerCase()]: {
-               code: value.Code,
-               description: value.Omschrijving,
-            }
-         };
-      }, {} as Omit<RwsApiMetadataParsed, 'id' | 'description'>);
-
-      return {
-         id: AquoMetadata_MessageID,
-         description: Parameter_Wat_Omschrijving,
-         ...dataValues
-      };
-   });
+   return rawData ? data : data.AquoMetadataLijst.map(parseMetadata);
 }
