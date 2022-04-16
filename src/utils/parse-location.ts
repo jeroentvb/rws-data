@@ -1,3 +1,4 @@
+import type { ObservationRequestStationLocation } from '@interfaces/get-observations.model';
 import type { RwsApiParsedStationLocation, RwsApiStationLocation } from '@interfaces/rws-api-station-location';
 
 export function parseLocation(location: RwsApiStationLocation): RwsApiParsedStationLocation {
@@ -9,5 +10,13 @@ export function parseLocation(location: RwsApiStationLocation): RwsApiParsedStat
       },
       name: location.Naam,
       code: location.Code
+   };
+}
+
+export function parseLocationForRequest(location: ObservationRequestStationLocation): Pick<RwsApiStationLocation, 'Code' | 'X' | 'Y'> {
+   return {
+      Code: location.code,
+      X: location.coordinates.x,
+      Y: location.coordinates.y,
    };
 }

@@ -1,5 +1,6 @@
 import type { ObservationPeriod } from './observation-period.model';
 import type { RwsApiMetadata, RwsApiMetadataParsed } from './rws-api-metadata.model';
+import { RwsApiResponseSuccess } from './rws-api-response.model';
 import type { RwsApiParsedStationLocation, RwsApiStationLocation } from './rws-api-station-location';
 
 export interface ObservationVariables {
@@ -18,6 +19,10 @@ export interface ObservationRequestData {
    location: ObservationRequestStationLocation;
    /** Needs to be in ISO string format */
    period: ObservationPeriod;
+}
+
+export interface ObservationsResponse extends RwsApiResponseSuccess {
+   WaarnemingenLijst: RwsApiObservationsReponse[];
 }
 
 /**

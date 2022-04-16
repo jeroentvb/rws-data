@@ -1,19 +1,32 @@
-import RWS from './dist/index.js';
+import rwsApi from './dist/index.js';
 import helper from 'jeroentvb-helper';
+// import { LatestObservationRequestData } from '@interfaces/get-latest-observations.model.js';
+
 
 (async () => {
-   const data = await RWS.observations(['WINDSHD', 'WINDSTOOT'], {
-      x: 633877.337865742,
-      y: 5834359.52893178,
-      code: 'BERK'
-   }, {
-      start: '2020-03-04T07:00:00.000+01:00',
-      end: '2020-03-04T09:00:00.000+01:00'
-   });
+   const requestObj = {
+      variables: {
+         compartiment: 'LT',
+      },
+      locations: [
+         {
+            code: 'BERK',
+            coordinates: {
+               x: 633877.337865742,
+               y: 5834359.52893178
+            }
+         },
+         {
+            'coordinates': {
+               'x': 646538.674114683,
+               'y': 5833598.51786221
+            },
+            'code': 'WIJD'
+         }
+      ],
+   };
 
-   if (data.Succesvol === false) {
-      throw new Error(data.Foutmelding);
-   }
-
-   helper.export.json('test', data);
+   const data = await rwsApi.getLatestObservations(requestObj);
+   helper.export.json('latest-observations', data);
+   console.log(data);
 })();

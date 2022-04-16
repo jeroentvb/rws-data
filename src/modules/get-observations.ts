@@ -1,14 +1,13 @@
 import { OBSERVATIONS_URL } from '../constants/urls.js';
 import { makeJsonRequest } from '../utils/json-request.js';
-import type { ObservationRequestData, RwsApiObservations, RwsApiObservationsReponse, RwsApiObservationValue } from '@interfaces/get-observations.model.js';
-import type { RwsApiResponseSuccess } from '@interfaces/rws-api-response.model.js';
-import { parseLocation } from '../utils/parse-location.js';
+import { parseLocation, parseLocationForRequest } from '../utils/parse-location.js';
 import { parseMetadata } from '../utils/parse-metadata.js';
+import { parseRawObservations } from '../utils/parse-observations.js';
 
-interface ObservationsResponse extends RwsApiResponseSuccess {
-   WaarnemingenLijst: RwsApiObservationsReponse[];
-}
+import type { ObservationRequestData, ObservationsResponse, RwsApiObservations, RwsApiObservationsReponse, RwsApiObservationValue } from '@interfaces/get-observations.model.js';
 
+export async function getObservations(requestData: ObservationRequestData): Promise<RwsApiObservations>
+export async function getObservations(requestData: ObservationRequestData, rawData: true): Promise<ObservationsResponse>
 export async function getObservations({ location, period, variables }: ObservationRequestData, rawData = false) {
    const data: ObservationsResponse = await makeJsonRequest(OBSERVATIONS_URL, {
       AquoPlusWaarnemingMetadata: {
@@ -21,11 +20,7 @@ export async function getObservations({ location, period, variables }: Observati
             ...(variables.parameter && { Parameter: { Code: variables.parameter } }),
          }
       },
-      Locatie: {
-         X: location.coordinates.x,
-         Y: location.coordinates.y,
-         Code: location.code,
-      },
+      Locatie: parseLocationForRequest(location),
       Periode: {
          Begindatumtijd: period.start,
          Einddatumtijd: period.end,
@@ -39,10 +34,7 @@ function parseObservations(data: RwsApiObservationsReponse[]): RwsApiObservation
    const values: RwsApiObservationValue[] = data.map((observation) => {
       return {
          metadata: parseMetadata(observation.AquoMetadata),
-         observations: observation.MetingenLijst.map((observationData) => ({
-            date: observationData.Tijdstip,
-            value: observationData.Meetwaarde.Waarde_Numeriek,
-         }))
+         observations: parseRawObservations(observation.MetingenLijst),
       };
    });
 
