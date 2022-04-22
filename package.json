@@ -5,6 +5,7 @@
   "description": "REPLACE THIS",
   "main": "dist/index.js",
   "type": "module",
+  "types": "dist/index.d.ts",
   "scripts": {
     "watch": "tsc -w",
     "build": "tsc",
