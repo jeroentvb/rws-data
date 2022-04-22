@@ -1,4 +1,4 @@
-import type { RwsApiObservationsReponse, RwsApiObservationValue } from '@interfaces/get-observations.model';
+import type { RwsApiObservationsReponse, RwsApiObservationValue } from '../interfaces';
 
 export function parseRawObservations(observations: RwsApiObservationsReponse['MetingenLijst']): RwsApiObservationValue['observations'] {
    return observations.map((observationData) => ({

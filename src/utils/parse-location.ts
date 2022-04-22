@@ -1,5 +1,4 @@
-import type { ObservationRequestStationLocation } from '@interfaces/get-observations.model';
-import type { RwsApiParsedStationLocation, RwsApiStationLocation } from '@interfaces/rws-api-station-location';
+import type { ObservationRequestStationLocation, RwsApiParsedStationLocation, RwsApiStationLocation } from '../interfaces';
 
 export function parseLocation(location: RwsApiStationLocation): RwsApiParsedStationLocation {
    return {

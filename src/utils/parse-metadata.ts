@@ -1,4 +1,4 @@
-import { RwsApiMetadata, RwsApiMetadataParsed, RwsApiMetadataValue } from '@interfaces/rws-api-metadata.model';
+import { RwsApiMetadata, RwsApiMetadataParsed, RwsApiMetadataValue } from '../interfaces/rws-api-metadata.model';
 
 export function parseMetadata({ AquoMetadata_MessageID, Parameter_Wat_Omschrijving, ...metadataValues }: RwsApiMetadata): RwsApiMetadataParsed {
    const dataValues = Object.entries(metadataValues).reduce((metadata, [key, value]: [string, RwsApiMetadataValue]) => {

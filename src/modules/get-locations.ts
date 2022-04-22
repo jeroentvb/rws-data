@@ -1,4 +1,4 @@
-import type { RwsApiMetadataResponse } from '@interfaces/rws-api-metadata.model.js';
+import type { RwsApiMetadataResponse } from '../interfaces/rws-api-metadata.model.js';
 import { parseLocation } from '../utils/parse-location.js';
 import { METADATA_SERVICE_URL } from '../constants/urls.js';
 import type { RwsApiParsedStationLocation } from '../interfaces/rws-api-station-location';

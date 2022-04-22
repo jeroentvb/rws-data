@@ -4,8 +4,7 @@ import { parseLocation, parseLocationForRequest } from '../utils/parse-location.
 import { parseMetadata } from '../utils/parse-metadata.js';
 import { parseRawObservations } from '../utils/parse-observations.js';
 
-import type { LatestObservationRequestData, LatestObservationRequestDataVariables, LatestObservationResponse } from '@interfaces/get-latest-observations.model';
-import type { RwsApiObservations, RwsApiObservationsReponse } from '@interfaces/get-observations.model.js';
+import type { LatestObservationRequestData, LatestObservationRequestDataVariables, LatestObservationResponse, RwsApiObservations, RwsApiObservationsReponse } from '../interfaces';
 
 export async function getLatestObservations(requestData: LatestObservationRequestData): Promise<RwsApiObservations[]>
 export async function getLatestObservations(requestData: LatestObservationRequestData, rawData: true): Promise<LatestObservationResponse>
