@@ -8,7 +8,7 @@ export async function makeJsonRequest<T extends RwsApiResponseSuccess>(url: stri
       body: JSON.stringify(body)
    });
 
-   if (!res.ok) throw new Error(`Request failed with status code ${res.status}`);
+   if (!res.ok) throw new Error(`Request failed with status code ${res.status}: ${res.statusText}`);
 
    const json = await res.json() as RwsApiResponse;
 
