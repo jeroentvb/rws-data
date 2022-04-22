@@ -4,9 +4,9 @@ import { parseLocation, parseLocationForRequest } from '../utils/parse-location.
 import { parseMetadata } from '../utils/parse-metadata.js';
 import { parseRawObservations } from '../utils/parse-observations.js';
 
-import type { ObservationRequestData, ObservationsResponse, RwsApiObservations, RwsApiObservationsReponse, RwsApiObservationValue } from '../interfaces/get-observations.model.js';
+import type { ObservationRequestData, ObservationsResponse, Observations, ObservationsReponse, ObservationValue } from '../interfaces/get-observations.model.js';
 
-export async function getObservations(requestData: ObservationRequestData): Promise<RwsApiObservations>
+export async function getObservations(requestData: ObservationRequestData): Promise<Observations>
 export async function getObservations(requestData: ObservationRequestData, rawData: true): Promise<ObservationsResponse>
 export async function getObservations({ location, period, variables }: ObservationRequestData, rawData = false) {
    const data: ObservationsResponse = await makeJsonRequest(OBSERVATIONS_URL, {
@@ -30,8 +30,8 @@ export async function getObservations({ location, period, variables }: Observati
    return rawData ? data : parseObservations(data.WaarnemingenLijst);
 }
 
-function parseObservations(data: RwsApiObservationsReponse[]): RwsApiObservations {
-   const values: RwsApiObservationValue[] = data.map((observation) => {
+function parseObservations(data: ObservationsReponse[]): Observations {
+   const values: ObservationValue[] = data.map((observation) => {
       return {
          metadata: parseMetadata(observation.AquoMetadata),
          observations: parseRawObservations(observation.MetingenLijst),

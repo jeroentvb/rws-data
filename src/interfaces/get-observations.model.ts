@@ -1,7 +1,7 @@
 import type { ObservationPeriod } from './observation-period.model';
-import type { RwsApiMetadata, RwsApiMetadataParsed } from './rws-api-metadata.model';
+import type { Metadata, MetadataParsed } from './metadata.model';
 import { RwsApiResponseSuccess } from './rws-api-response.model';
-import type { RwsApiParsedStationLocation, RwsApiStationLocation } from './rws-api-station-location';
+import type { StationLocation, RawStationLocation } from './station-location';
 
 export interface ObservationVariables {
    grootheid?: string;
@@ -12,7 +12,7 @@ export interface ObservationVariables {
    parameter?: string;
 }
 
-export type ObservationRequestStationLocation = Pick<RwsApiParsedStationLocation, 'coordinates' | 'code'>;
+export type ObservationRequestStationLocation = Pick<StationLocation, 'coordinates' | 'code'>;
 
 export interface ObservationRequestData {
    variables: ObservationVariables;
@@ -22,14 +22,14 @@ export interface ObservationRequestData {
 }
 
 export interface ObservationsResponse extends RwsApiResponseSuccess {
-   WaarnemingenLijst: RwsApiObservationsReponse[];
+   WaarnemingenLijst: ObservationsReponse[];
 }
 
 /**
  * Raw observations data
  */
-export interface RwsApiObservationsReponse {
-   Locatie: RwsApiStationLocation;
+export interface ObservationsReponse {
+   Locatie: RawStationLocation;
    MetingenLijst: {
       Tijdstip: string;
       Meetwaarde: {
@@ -44,19 +44,19 @@ export interface RwsApiObservationsReponse {
       }
    }[];
    /** There are more keys in here */
-   AquoMetadata: RwsApiMetadata;
+   AquoMetadata: Metadata;
 }
 
 /**
  * Parsed observation data
  */
-export interface RwsApiObservations {
-   location: RwsApiParsedStationLocation;
-   values: RwsApiObservationValue[]
+export interface Observations {
+   location: StationLocation;
+   values: ObservationValue[]
 }
 
-export interface RwsApiObservationValue {
-   metadata: RwsApiMetadataParsed;
+export interface ObservationValue {
+   metadata: MetadataParsed;
    observations: {
       date: string;
       value: number;

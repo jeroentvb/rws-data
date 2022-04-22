@@ -4,9 +4,9 @@ import { parseLocation, parseLocationForRequest } from '../utils/parse-location.
 import { parseMetadata } from '../utils/parse-metadata.js';
 import { parseRawObservations } from '../utils/parse-observations.js';
 
-import type { LatestObservationRequestData, LatestObservationRequestDataVariables, LatestObservationResponse, RwsApiObservations, RwsApiObservationsReponse } from '../interfaces';
+import type { LatestObservationRequestData, LatestObservationRequestDataVariables, LatestObservationResponse, Observations, ObservationsReponse } from '../interfaces';
 
-export async function getLatestObservations(requestData: LatestObservationRequestData): Promise<RwsApiObservations[]>
+export async function getLatestObservations(requestData: LatestObservationRequestData): Promise<Observations[]>
 export async function getLatestObservations(requestData: LatestObservationRequestData, rawData: true): Promise<LatestObservationResponse>
 export async function getLatestObservations({ variables, locations }: LatestObservationRequestData, rawData = false) {
    const data: LatestObservationResponse = await makeJsonRequest(LATEST_OBSERVATIONS_URL, {
@@ -31,8 +31,8 @@ function parseVariablesForRequest(variables: LatestObservationRequestDataVariabl
    };
 }
 
-function parseLatestObservations(data: RwsApiObservationsReponse[]): RwsApiObservations[] {
-   function parseValues(observation: RwsApiObservationsReponse) {
+function parseLatestObservations(data: ObservationsReponse[]): Observations[] {
+   function parseValues(observation: ObservationsReponse) {
       return {
          metadata: parseMetadata(observation.AquoMetadata),
          observations: parseRawObservations(observation.MetingenLijst),
@@ -56,5 +56,5 @@ function parseLatestObservations(data: RwsApiObservationsReponse[]): RwsApiObser
 
          return final;
       }
-   }, [] as RwsApiObservations[]);
+   }, [] as Observations[]);
 }

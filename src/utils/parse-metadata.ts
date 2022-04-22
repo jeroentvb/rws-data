@@ -1,7 +1,7 @@
-import { RwsApiMetadata, RwsApiMetadataParsed, RwsApiMetadataValue } from '../interfaces/rws-api-metadata.model';
+import { Metadata, MetadataParsed, MetadataValue } from '../interfaces/metadata.model';
 
-export function parseMetadata({ AquoMetadata_MessageID, Parameter_Wat_Omschrijving, ...metadataValues }: RwsApiMetadata): RwsApiMetadataParsed {
-   const dataValues = Object.entries(metadataValues).reduce((metadata, [key, value]: [string, RwsApiMetadataValue]) => {
+export function parseMetadata({ AquoMetadata_MessageID, Parameter_Wat_Omschrijving, ...metadataValues }: Metadata): MetadataParsed {
+   const dataValues = Object.entries(metadataValues).reduce((metadata, [key, value]: [string, MetadataValue]) => {
       if (value.Code === 'NVT') return metadata;
 
       return {
@@ -11,7 +11,7 @@ export function parseMetadata({ AquoMetadata_MessageID, Parameter_Wat_Omschrijvi
             description: value.Omschrijving,
          }
       };
-   }, {} as Omit<RwsApiMetadataParsed, 'id' | 'description'>);
+   }, {} as Omit<MetadataParsed, 'id' | 'description'>);
 
    return {
       id: AquoMetadata_MessageID,

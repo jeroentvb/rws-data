@@ -1,6 +1,6 @@
-import type { ObservationRequestStationLocation, RwsApiParsedStationLocation, RwsApiStationLocation } from '../interfaces';
+import type { ObservationRequestStationLocation, StationLocation, RawStationLocation } from '../interfaces';
 
-export function parseLocation(location: RwsApiStationLocation): RwsApiParsedStationLocation {
+export function parseLocation(location: RawStationLocation): StationLocation {
    return {
       id: location.Locatie_MessageID,
       coordinates: {
@@ -12,7 +12,7 @@ export function parseLocation(location: RwsApiStationLocation): RwsApiParsedStat
    };
 }
 
-export function parseLocationForRequest(location: ObservationRequestStationLocation): Pick<RwsApiStationLocation, 'Code' | 'X' | 'Y'> {
+export function parseLocationForRequest(location: ObservationRequestStationLocation): Pick<RawStationLocation, 'Code' | 'X' | 'Y'> {
    return {
       Code: location.code,
       X: location.coordinates.x,

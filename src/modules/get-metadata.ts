@@ -1,15 +1,15 @@
 import { METADATA_SERVICE_URL } from '../constants/urls.js';
 import { makeJsonRequest } from '../utils/json-request.js';
 import type { RwsApiResponseSuccess } from '../interfaces/rws-api-response.model.js';
-import type { RwsApiMetadata, RwsApiMetadataParsed, RwsApiMetadataResponse } from '../interfaces/rws-api-metadata.model.js';
+import type { Metadata, MetadataParsed, MetadataResponse } from '../interfaces/metadata.model.js';
 import { parseMetadata } from '../utils/parse-metadata.js';
 
 interface CatalogusResponse extends RwsApiResponseSuccess {
-   AquoMetadataLijst: RwsApiMetadata[];
+   AquoMetadataLijst: Metadata[];
 }
 
-export async function getMetadata(): Promise<RwsApiMetadataParsed[]>
-export async function getMetadata(rawData: true): Promise<RwsApiMetadataResponse>
+export async function getMetadata(): Promise<MetadataParsed[]>
+export async function getMetadata(rawData: true): Promise<MetadataResponse>
 export async function getMetadata(rawData = false) {
    const data: CatalogusResponse = await makeJsonRequest(METADATA_SERVICE_URL, {
       CatalogusFilter: {
