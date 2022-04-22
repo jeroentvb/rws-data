@@ -1,4 +1,4 @@
-import { Metadata, MetadataParsed, MetadataValue } from '../interfaces/metadata.model';
+import { Metadata, MetadataParsed, MetadataValue } from '../interfaces/metadata.model.js';
 
 export function parseMetadata({ AquoMetadata_MessageID, Parameter_Wat_Omschrijving, ...metadataValues }: Metadata): MetadataParsed {
    const dataValues = Object.entries(metadataValues).reduce((metadata, [key, value]: [string, MetadataValue]) => {

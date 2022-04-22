@@ -1,7 +1,7 @@
 import type { MetadataResponse } from '../interfaces/metadata.model.js';
 import { parseLocation } from '../utils/parse-location.js';
 import { METADATA_SERVICE_URL } from '../constants/urls.js';
-import type { StationLocation } from '../interfaces/station-location';
+import type { StationLocation } from '../interfaces/station-location.js';
 import { makeJsonRequest } from '../utils/json-request.js';
 
 const LOCATIONS_REQUEST_BODY = {

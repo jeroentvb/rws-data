@@ -1,7 +1,7 @@
-import type { ObservationPeriod } from './observation-period.model';
-import type { Metadata, MetadataParsed } from './metadata.model';
-import { RwsApiResponseSuccess } from './rws-api-response.model';
-import type { StationLocation, RawStationLocation } from './station-location';
+import type { ObservationPeriod } from './observation-period.model.js';
+import type { Metadata, MetadataParsed } from './metadata.model.js';
+import { RwsApiResponseSuccess } from './rws-api-response.model.js';
+import type { StationLocation, RawStationLocation } from './station-location.js';
 
 export interface ObservationVariables {
    grootheid?: string;

@@ -1,5 +1,5 @@
-import { RwsApiResponseSuccess } from './rws-api-response.model';
-import { RawStationLocation } from './station-location';
+import { RwsApiResponseSuccess } from './rws-api-response.model.js';
+import { RawStationLocation } from './station-location.js';
 
 /**
  * Api response interface
