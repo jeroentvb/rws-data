@@ -1,7 +1,7 @@
 # RWS Waterinfo Api Node
 Node.js wrapper for the RWS waterinfo api.
 
-Docs about the API can be found [here](https://rijkswaterstaat.github.io/wm-ws-dl/#introduction). Docs are in english, but the API itself is mostly Dutch. This wrapper is mostly in English, aside from a couple variable names.
+Docs about the API can be found [here](https://rijkswaterstaat.github.io/wm-ws-dl/#introduction), or [here](https://rijkswaterstaatdata.nl/waterdata/#h7b0fe129-3b57-4c01-bcba-e3c96a1496d4) for more modern documentaion. Docs are in english, but the API itself is mostly Dutch. This wrapper is mostly in English, aside from a couple variable names.
 
 ## Table of contents
 * [Table of contents](#table-of-contents)
